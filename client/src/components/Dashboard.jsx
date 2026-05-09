@@ -16,7 +16,7 @@ function Dashboard() {
         try {
 
             const res = await axios.get(
-                'http://localhost:5000/api/tasks'
+                'team-task-manager-production-f165.up.railway.app'
             );
 
             setTasks(res.data);

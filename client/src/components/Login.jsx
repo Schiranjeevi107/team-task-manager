@@ -1,45 +1,41 @@
 import { useState } from 'react';
+
 import axios from 'axios';
 
 function Login() {
 
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    const handleChange = (e) => {
-
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
-
-    };
-
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
 
         e.preventDefault();
 
         try {
 
             const res = await axios.post(
-                'http://localhost:5000/api/auth/login',
-                formData
+
+                'team-task-manager-production-f165.up.railway.app',
+
+                {
+                    email,
+                    password
+                }
+
             );
 
             localStorage.setItem(
-    'token',
-    res.data.token
-);
+                'token',
+                res.data.token
+            );
 
-alert('Login Successful');
+            alert('Login Successful');
 
-window.location.reload();
+            window.location.reload();
 
-            console.log(res.data);
+        }
 
-        } catch (err) {
+        catch (err) {
 
             console.log(err);
 
@@ -55,22 +51,26 @@ window.location.reload();
 
             <h2>Login</h2>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleLogin}>
 
                 <input
                     type="email"
-                    name="email"
                     placeholder="Email"
-                    onChange={handleChange}
+                    value={email}
+                    onChange={(e) =>
+                        setEmail(e.target.value)
+                    }
                 />
 
                 <br /><br />
 
                 <input
                     type="password"
-                    name="password"
                     placeholder="Password"
-                    onChange={handleChange}
+                    value={password}
+                    onChange={(e) =>
+                        setPassword(e.target.value)
+                    }
                 />
 
                 <br /><br />
